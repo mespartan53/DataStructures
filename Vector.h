@@ -27,7 +27,7 @@ public:
     bool empty() const;
  
     iterator begin();                      // return iterator to first element
-    iterator end();                        // return iterator to past last element
+    iterator end();                        // return iterator to last element
     T & front();                           // return reference to first element
     T & back();                            // return reference to last element
     void push_back(const T & value);
@@ -109,23 +109,12 @@ Vector<T> & Vector<T>::operator=(const Vector<T> & v)
     my_capacity = v.my_capacity;
 
     return *this;
-
-/* alternate implementation
-    Vector<T> copy = v;
-    swap(*this, copy);
-    return *this;
-*/
 }
 
 // move assignment
 template <class T>  
 Vector<T> & Vector<T>::operator=(Vector<T> && v)
 {
-/* alternate implementation
-    swap(my_size, v.my_size);
-    swap(my_capacity, v.my_capacity);
-    swap(buffer, v.buffer);
-*/
     my_size = v.my_size;
     v.my_size = 0;
     my_capacity = v.my_capacity;
@@ -167,6 +156,32 @@ void Vector<T>::resize(unsigned int size)
     else my_size = size;
 }
 
+template <class T>  
+iterator Vector<T>::begin();                      // return iterator to first element
+template <class T>  
+iterator Vector<T>::end();                        // return iterator to last element
+template <class T>  
+T & Vector<T>::front();                           // return reference to first element
+template <class T>  
+T & Vector<T>::back();                            // return reference to last element
+template <class T>  
+void Vector<T>::push_back(const T & value);
+template <class T>  
+void Vector<T>::push_back(T && value);
+template <class T>  
+void Vector<T>::pop_back()
+{
+    
+}
+ 
+template <class T>  
+void Vector<T>::reserve(unsigned int capacity);   // adjust capacity
+template <class T>  
+void Vector<T>::resize(unsigned int size);        // adjust size
 
+template <class T>   
+T & Vector<T>::operator[](unsigned int index);
+template <class T>  
+void Vector<T>::erase(iterator);                  // erase elem iterator points to (shift left from iterator)
 
 #endif
