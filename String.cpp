@@ -2,7 +2,6 @@
 Marcus Loureiro - Estrada
 5/21/2019
 String.cpp
-
 Implementation of constructors and member functions defined in String.h.
 ************************************************************************/
 
@@ -161,8 +160,56 @@ String::String substr(unsigned pos, unsigned len) const
     return temp;
 }
 
-friend bool operator==(const String &, const String &);
-friend bool operator<=(const String &, const String &);
-friend bool operator<(const String &, const String &);
-friend ostream & operator<<(ostream &, const String &);
-friend istream & operator>>(istream &, String &);
+friend bool operator==(const String &left, const String &right)
+{
+    if(left.size != right.size)
+        return false;
+    for(int i = 0; i < left.size; i++)
+        if (left.buffer[i] != right.buffer[i])
+            return false;
+    return true;
+}
+           
+friend bool operator<=(const String &left, const String &right)
+{
+    if (left.size > rigth.size)
+        return false;
+    for(int i = 0; i < left.size; i++)
+        if(left.buffer[i] > right.buffer[i])
+            return false;
+    return true;
+}
+          
+friend bool operator<(const String &left, const String &right)
+{
+    if (left.size >= rigth.size)
+        return false;
+    for(int i = 0; i <= left.size; i++)
+        if(left.buffer[i] >= right.buffer[i])
+            return false;
+    return true;
+}
+           
+friend ostream & operator<<(ostream &out, const String &src);
+{
+    for(int i = 0; i < src.size; i++)
+        out << src.buffer[i];
+    return out;
+}
+           
+friend istream & operator>>(istream &in, String &src)
+{
+    src = "";
+    char t = ' ';
+    
+    while (t == ' ' or t == '\t' or t == '\n')
+        in.get(t);
+
+    while (t != ' ' and t != '\t' and t != '\n') {
+        src += t;
+        in.get(t);
+    }
+    cin.unget();
+
+    return in;                
+}
