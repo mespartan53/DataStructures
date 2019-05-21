@@ -3,7 +3,7 @@
 #define VECTOR_H
 
 // Vector.h
-
+#include <iostream>
 #include <cassert>
 
 using namespace std;
@@ -166,12 +166,31 @@ template <class T>
 T & Vector<T>::back();                            // return reference to last element
 template <class T>  
 void Vector<T>::push_back(const T & value);
+{
+    T* temp;
+    
+    if(my_size < my_cap)
+    {
+        buffer.[my_size++] = value;   
+    }
+    else
+    {
+        temp = new T[my_cap++];
+        my_size++;
+        for (int i = 0; i < my_size - 1; i++)
+            temp.buffer[i] = buffer[i];
+        temp.buffer[my_size - 1] = value;
+        
+        delete [] buffer;
+        buffer = temp;
+    }
+}
 template <class T>  
 void Vector<T>::push_back(T && value);
 template <class T>  
 void Vector<T>::pop_back()
 {
-    
+    size--;
 }
  
 template <class T>  
